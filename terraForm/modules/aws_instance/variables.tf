@@ -4,6 +4,10 @@ variable "key_name" {
   description = "the ssh key name"
 }
 
+variable "public_key" {
+  description = "the ssh key value"
+}
+
 variable "Public_Security_Group_id_list" {
   type = "list"
 }
@@ -23,11 +27,8 @@ filter {
 owners = ["099720109477"] # Canonical
 }
 
-data "aws_subnet_ids" "Public_Subnet_id_list" {
-  vpc_id = "${var.vpc_id}"
-  tags = {
-    Tier = "Public"
-  }
+variable "Public_Subnet_id_list" {
+  type = "list"
 }
 
 variable "public_subnet_count" {

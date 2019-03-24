@@ -36,12 +36,15 @@ module "route_tables" {
   igw_id = "${module.internet_gateway.igw_id}"
   cidr_block = "${var.vpc_cidr_block}"
   public_subnet_count = "${var.aws_public_subnet_count}"
+  Public_Subnet_id_list = "${data.aws_subnet_ids.Public_Subnet_id_list.ids}"
 }
 
 module "aws_instance" {
   source = "./modules/aws_instance/"
   Public_Security_Group_id_list = ["${module.security_groups.public_security_groups}"]
   key_name = "${var.ssh_key_name}"
+  public_key = "${var.ssh_public_key}"
   vpc_id = "${module.vpc_network.vpc_id}"
   public_subnet_count = "${var.aws_public_subnet_count}"
+  Public_Subnet_id_list = "${data.aws_subnet_ids.Public_Subnet_id_list.ids}"
 }
