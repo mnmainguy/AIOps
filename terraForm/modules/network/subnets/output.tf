@@ -19,11 +19,3 @@ output "public_dev_subnet_ids" {
 output "private_dev_subnet_ids" {
   value = ["${aws_subnet.private-dev.*.id}"]
 }
-
-output "public_subnet_ids" {
-  value = ["${aws_subnet.public-prod.*.id}","${aws_subnet.public-qa.*.id}","${aws_subnet.public-dev.*.id}"]
-}
-
-output "private_subnet_ids" {
-  value = ["${aws_subnet.private-prod.*.id}","${aws_subnet.private-qa.*.id}","${aws_subnet.private-dev.*.id}"]
-}

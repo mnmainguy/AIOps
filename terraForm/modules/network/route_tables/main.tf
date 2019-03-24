@@ -10,8 +10,8 @@ resource "aws_route_table" "public-rt" {
 }
 
 resource "aws_route_table_association" "public-rt" {
-  count = "${length(var.Public_Subnet_id_list)}"
-  subnet_id = "${var.Public_Subnet_id_list[count.index]}"
+  count = "${var.public_subnet_count}"
+  subnet_id = "${data.aws_subnet_ids.Public_Subnet_id_list.ids[count.index]}"
   route_table_id = "${aws_route_table.public-rt.id}"
 }
 
