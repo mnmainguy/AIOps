@@ -7,3 +7,6 @@ variable "vpc_id" {
 variable "availability_zone_count" {
   description = "Count of current availability zones in us west-2"
 }
+
+variable "cluster_name" {
+}

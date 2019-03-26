@@ -7,6 +7,8 @@ resource "aws_subnet" "public-prod" {
   tags {
     Name = "Public Subnet PROD-${count.index}"
     Tier = "Public"
+    ENV = "PROD"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
@@ -19,6 +21,8 @@ resource "aws_subnet" "private-prod" {
   tags {
     Name = "Private Subnet PROD-${count.index}"
     Tier = "Private"
+    ENV = "PROD"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
@@ -31,6 +35,8 @@ resource "aws_subnet" "public-qa" {
   tags {
     Name = "Public Subnet QA-${count.index}"
     Tier = "Public"
+    ENV = "QA"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
@@ -43,6 +49,8 @@ resource "aws_subnet" "private-qa" {
   tags {
     Name = "Private Subnet QA-${count.index}"
     Tier = "Private"
+    ENV = "QA"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
@@ -55,6 +63,8 @@ resource "aws_subnet" "public-dev" {
   tags {
     Name = "Public Subnet DEV-${count.index}"
     Tier = "Public"
+    ENV = "DEV"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
@@ -67,5 +77,7 @@ resource "aws_subnet" "private-dev" {
   tags {
     Name = "Private Subnet DEV-${count.index}"
     Tier = "Private"
+    ENV = "DEV"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }

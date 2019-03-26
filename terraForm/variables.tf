@@ -32,12 +32,12 @@ variable "aws_env_type_count" {
 
 variable "aws_public_subnet_count" {
     description = "Number of public subnets created - aws_availability_zone_count X aws_env_type_count"
-    default = 11 # 4*3=12-1 (zero index)
+    default = 9
 }
 
 variable "aws_private_subnet_count" {
     description = "Number of private subnets created - aws_availability_zone_count X aws_env_type_count"
-    default = 11 # 4*3=12-1 (zero index)
+    default = 9
 }
 
 data "aws_subnet_ids" "Public_Subnet_id_list" {
@@ -46,4 +46,22 @@ data "aws_subnet_ids" "Public_Subnet_id_list" {
     Tier = "Public"
   }
   depends_on = ["module.subnets"]
+}
+
+data "aws_subnet_ids" "Public_PROD_Subnet_id_list" {
+  vpc_id = "${module.vpc_network.vpc_id}"
+  tags = {
+    Tier = "Public"
+    ENV = "PROD"
+  }
+  depends_on = ["module.subnets"]
+}
+
+variable "aws_cluster_name" {
+  default = "aiops-eks"
+  type    = "string"
+}
+
+variable "aws_eks_role_arn" {
+  type    = "string"
 }
