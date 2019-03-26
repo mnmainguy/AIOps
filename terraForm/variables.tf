@@ -62,6 +62,10 @@ variable "aws_cluster_name" {
   type    = "string"
 }
 
-variable "aws_eks_role_arn" {
+variable "aws_eks_cluser_arn" {
+  type    = "string"
+}
+
+variable "aws_eks_nodes_role_name" {
   type    = "string"
 }

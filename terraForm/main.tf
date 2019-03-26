@@ -23,6 +23,7 @@ module "internet_gateway" {
 module "security_groups" {
   source = "./modules/network/security_groups/"
   vpc_id = "${module.vpc_network.vpc_id}"
+  cluster_name = "${var.aws_cluster_name}"
 }
 
 module "subnets" {
@@ -51,11 +52,22 @@ module "route_tables" {
 #   Public_Subnet_id_list = "${data.aws_subnet_ids.Public_Subnet_id_list.ids}"
 # }
 
-module "eks" {
-  source = "./modules/k8s/eks/"
+module "eks_cluster" {
+  source = "./modules/k8s/eks_cluster/"
   cluster_name = "${var.aws_cluster_name}"
-  role_arn = "${var.aws_eks_role_arn}"
-  Public_Security_Group_id_list = ["${module.security_groups.public_security_groups}"]
+  eks_cluser_role_arn = "${var.aws_eks_cluser_arn}"
+  eks_nodes_role_name = "${var.aws_eks_nodes_role_name}"
+  EKS_Cluster_Security_Group = ["${module.security_groups.eks_cluser_security_groups}"]
   Public_PROD_Subnet_id_list = "${data.aws_subnet_ids.Public_PROD_Subnet_id_list.ids}"
-
 }
+
+module "eks_worker" {
+  source = "./modules/k8s/eks_worker"
+  cluster_name = "${var.aws_cluster_name}"
+  aws_eks_version = "${module.eks_cluster.aws_eks_version}"
+  eks_node_userdata = "${module.eks_cluster.eks_node_userdata}"
+  EKS_Node_Security_Group = ["${module.security_groups.eks_node_security_groups}"]
+  eks_nodes_role_name = "${var.aws_eks_nodes_role_name}"
+  Public_PROD_Subnet_id_list = "${data.aws_subnet_ids.Public_PROD_Subnet_id_list.ids}"
+}
+

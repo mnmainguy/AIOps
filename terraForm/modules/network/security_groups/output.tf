@@ -13,3 +13,11 @@ output "eks_cluster_in_out" {
 output "public_security_groups" {
   value = ["${aws_security_group.ssh_in_out.id}","${aws_security_group.flask_in_out.id}","${aws_security_group.eks_cluster_in_out.id}"]
 }
+
+output "eks_cluser_security_groups" {
+  value = ["${aws_security_group.eks_cluster_in_out.id}"]
+}
+
+output "eks_node_security_groups" {
+  value = ["${aws_security_group.eks_cluster_in_out.id}"]
+}
