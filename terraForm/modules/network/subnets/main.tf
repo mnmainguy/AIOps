@@ -1,4 +1,4 @@
-resource "aws_subnet" "public-${var.aiops_env}" {
+resource "aws_subnet" "public" {
   count = "${var.availability_zone_count}"
   vpc_id = "${var.vpc_id}"
   availability_zone = "${var.aws_availability_zone_names[count.index]}"
@@ -12,7 +12,7 @@ resource "aws_subnet" "public-${var.aiops_env}" {
   }
 }
 
-resource "aws_subnet" "private-${var.aiops_env}" {
+resource "aws_subnet" "private" {
   count = "${var.availability_zone_count}"
   vpc_id = "${var.vpc_id}"
   availability_zone = "${var.aws_availability_zone_names[count.index]}"

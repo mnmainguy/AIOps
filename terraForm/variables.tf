@@ -25,6 +25,18 @@ locals {
   aws_availability_zone_count = "${lookup(local.aws_az_count,env)}"
 }
 
+variable "aiops_env" {
+    description = "AWS environment"
+}
+
+variable "aws_availability_zone_names" {
+    description = "AWS environment"
+}
+
+variable "aws_public_subnet_range" {
+    description = "AWS environment"
+}
+
 variable "region" {
     description = "AWS region"
     default = "us-west-2"
