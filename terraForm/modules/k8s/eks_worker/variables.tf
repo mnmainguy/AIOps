@@ -27,3 +27,18 @@ variable "cluster_name" {
 variable "Public_PROD_Subnet_id_list" {
   type = "list"
 }
+
+
+variable "eks_worker_instance_type" {
+}
+
+
+variable "eks_worker_desired_capacity" {
+}
+
+variable "eks_worker_min_size" {
+}
+
+variable "eks_worker_max_size" {
+}
+

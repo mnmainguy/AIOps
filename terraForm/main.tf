@@ -69,5 +69,14 @@ module "eks_worker" {
   EKS_Node_Security_Group = ["${module.security_groups.eks_node_security_groups}"]
   eks_nodes_role_name = "${var.aws_eks_nodes_role_name}"
   Public_PROD_Subnet_id_list = "${data.aws_subnet_ids.Public_PROD_Subnet_id_list.ids}"
+  eks_worker_instance_type = "${var.eks_worker_instance_type}"
+  eks_worker_desired_capacity = "${var.eks_worker_desired_capacity}"
+  eks_worker_max_size = "${var.eks_worker_max_size}"
+  eks_worker_min_size = "${var.eks_worker_min_size}"
 }
 
+module "eks_ebs" {
+  source = "./modules/k8s/eks_ebs"
+  Public_PROD_Subnet_id_list = "${data.aws_subnet_ids.Public_PROD_Subnet_id_list.ids}"
+  EBSsize = "${var.aws_ebs_size}"
+}

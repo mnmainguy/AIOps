@@ -19,6 +19,9 @@ resource "null_resource" "ApplyAWSCredentials" {
     template = "${local_file.config_map_aws_auth.content}"
   }
   provisioner "local-exec" {
-    command = "kubectl apply -f config_map_aws_auth.yml"
+    command = <<EOT
+    kubectl apply -f config_map_aws_auth.yml
+    kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.10/nvidia-device-plugin.yml
+    EOT
   }
 }

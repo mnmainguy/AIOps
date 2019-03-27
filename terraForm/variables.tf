@@ -69,3 +69,24 @@ variable "aws_eks_cluser_arn" {
 variable "aws_eks_nodes_role_name" {
   type    = "string"
 }
+
+variable "eks_worker_instance_type" {
+  default = "p2.xlarge"
+}
+
+
+variable "eks_worker_desired_capacity" {
+  default = 3
+}
+
+variable "eks_worker_min_size" {
+  default = 1
+}
+
+variable "eks_worker_max_size" {
+  default = 3
+}
+
+variable "aws_ebs_size" {
+  default = 40
+}
