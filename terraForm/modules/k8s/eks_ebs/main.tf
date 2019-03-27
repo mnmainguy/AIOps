@@ -1,5 +1,6 @@
 resource "aws_ebs_volume" "EKS_lb" {
-  availability_zone = "${var.Public_PROD_Subnet_id_list}"
+  count = "${var.availability_zone_count}"
+  availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
   size              = "${var.EBSsize}"
 
   tags = {

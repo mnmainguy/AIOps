@@ -58,7 +58,7 @@ data "aws_subnet_ids" "Public_PROD_Subnet_id_list" {
 }
 
 variable "aws_cluster_name" {
-  default = "aiops-eks"
+  default = "aiops-eks-v1"
   type    = "string"
 }
 
@@ -89,4 +89,8 @@ variable "eks_worker_max_size" {
 
 variable "aws_ebs_size" {
   default = 40
+}
+
+variable "eks_git_token" {
+  type = "string"
 }
