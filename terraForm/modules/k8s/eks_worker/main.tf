@@ -15,6 +15,7 @@ resource "aws_launch_configuration" "eks_prod_worker" {
   lifecycle {
     create_before_destroy = true
   }
+  depends_on = ["aws_iam_instance_profile.aiops_eks_prod_node"]
 }
 
 resource "aws_autoscaling_group" "eks_prod_worker_autoscaling" {
