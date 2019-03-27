@@ -1,3 +1,22 @@
+locals {
+  env="${terraform.workspace}"
+  aws_az_count = {
+    "default" = 2
+    "DEV" = 2
+    "QA" = 3
+    "PROD" = 3 
+  
+  }
+  subnet_range = {
+    "default" = 0
+    "DEV" = 0
+    "QA" = 1
+    "PROD" = 2 
+  
+  }
+  aws_availability_zone_count = "${lookup(local.aws_az_count,env)}"
+}
+
 variable "region" {
     description = "AWS region"
     default = "us-west-2"
@@ -23,7 +42,7 @@ variable "ssh_public_key" {
 
 variable "aws_availability_zone_count" {
     description = "Number of AWS availability zones to use"
-    default = 4
+    default = 3
 }
 variable "aws_env_type_count" {
     description = "Number of environment types to use - currently 3 - DEV/QA/PROD"

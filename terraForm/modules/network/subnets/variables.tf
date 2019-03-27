@@ -10,3 +10,6 @@ variable "availability_zone_count" {
 
 variable "cluster_name" {
 }
+
+variable "aiops_env" {
+}

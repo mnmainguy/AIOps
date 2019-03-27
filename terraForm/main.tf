@@ -30,6 +30,7 @@ module "subnets" {
   source = "./modules/network/subnets/"
   vpc_id = "${module.vpc_network.vpc_id}"
   availability_zone_count = "${var.aws_availability_zone_count}"
+  aiops_env = "${var.aiops_env}"
   cluster_name = "${var.aws_cluster_name}"
 }
 
