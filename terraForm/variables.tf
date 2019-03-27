@@ -7,11 +7,19 @@ locals {
     "PROD" = 3 
   
   }
-  subnet_range = {
+  public_subnet_range = {
     "default" = 0
     "DEV" = 0
-    "QA" = 1
-    "PROD" = 2 
+    "QA" =  2
+    "PROD" = 4 
+  
+  }
+
+  private_subnet_range = {
+    "default" = 1
+    "DEV" = 1
+    "QA" = 3
+    "PROD" = 5 
   
   }
   aws_availability_zone_count = "${lookup(local.aws_az_count,env)}"
