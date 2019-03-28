@@ -63,7 +63,7 @@ resource "aws_security_group_rule" "flask_out" {
   source_security_group_id = "${aws_security_group.flask_in_out.id}"
 }
 
-resource "aws_security_group_rule" "eks_cluster_in" {
+resource "aws_security_group_rule" "eks_cluster_in_localip" {
   type = "ingress"
   from_port = 443
   to_port = 443
@@ -71,6 +71,16 @@ resource "aws_security_group_rule" "eks_cluster_in" {
   cidr_blocks = ["${local.ipAddress}"]
   security_group_id = "${aws_security_group.eks_cluster_in_out.id}"
 }
+
+resource "aws_security_group_rule" "eks_cluster_in_nodes" {
+  type = "ingress"
+  from_port = 443
+  to_port = 443
+  protocol = "tcp"
+  security_group_id = "${aws_security_group.eks_cluster_in_out.id}"
+  source_security_group_id = "${aws_security_group.eks_node_in_out.id}"
+}
+
 
 resource "aws_security_group_rule" "eks_cluster_out" {
   type = "egress"

@@ -41,3 +41,6 @@ variable "eks_worker_min_size" {
 
 variable "eks_worker_max_size" {
 }
+
+variable "key_name" {
+}

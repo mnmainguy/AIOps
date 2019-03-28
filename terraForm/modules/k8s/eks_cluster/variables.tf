@@ -15,6 +15,3 @@ variable "Public_PROD_Subnet_id_list" {
 
 variable "cluster_name" {
 }
-
-variable "eks_git_token" {
-}
