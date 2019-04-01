@@ -2,25 +2,30 @@ locals {
   env="${terraform.workspace}"
   aws_az_count = {
     "default" = 2
-    "DEV" = 2
-    "QA" = 3
+    "TOOLS" = 2
+    "TRAIN" = 3
     "PROD" = 3 
   
   }
   public_subnet_range = {
     "default" = 0
-    "DEV" = 0
-    "QA" =  2
+    "TOOLS" = 0
+    "TRAIN" =  2
     "PROD" = 4 
   
   }
 
   private_subnet_range = {
     "default" = 1
-    "DEV" = 1
-    "QA" = 3
+    "TOOLS" = 1
+    "TRAIN" = 3
     "PROD" = 5 
   
+ cluster_name = {
+    "default" = "kubeflow"
+    "TOOLS" = "kubeflow"
+    "TRAIN" = "mnist_train"
+    "PROD" = "mnist_prod" 
   }
   aws_availability_zone_count = "${lookup(local.aws_az_count,env)}"
 }
