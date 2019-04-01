@@ -4,7 +4,7 @@ locals {
     "default" = 2
     "TOOLS" = 2
     "TRAIN" = 3
-    "PROD" = 3 
+    "PROD" = 4 
   
   }
   public_subnet_range = {
@@ -20,26 +20,41 @@ locals {
     "TOOLS" = 1
     "TRAIN" = 3
     "PROD" = 5 
-  
+  }
+
  cluster_name = {
     "default" = "kubeflow"
     "TOOLS" = "kubeflow"
     "TRAIN" = "mnist_train"
     "PROD" = "mnist_prod" 
   }
-  aws_availability_zone_count = "${lookup(local.aws_az_count,env)}"
-}
+  worker_desired_capacity = {
+    "default" = 1
+    "TOOLS" = 1
+    "TRAIN" = 2
+    "PROD" = 2
+  }
 
-variable "aiops_env" {
-    description = "AWS environment"
-}
-
-variable "aws_availability_zone_names" {
-    description = "AWS environment"
-}
-
-variable "aws_public_subnet_range" {
-    description = "AWS environment"
+  worker_min_size = {
+    "default" = 1
+    "TOOLS" = 1
+    "TRAIN" = 3
+    "PROD" = 3
+  }
+  
+  worker_max_size = {
+    "default" = 3
+    "TOOLS" = 3
+    "TRAIN" = 4
+    "PROD" = 4
+  }
+  aws_availability_zone_count="${lookup(local.aws_az_count,env)}"
+  aws_public_subnet_range="${lookup(local.public_subnet_range,env)}"
+  aws_private_subnet_range="${lookup(local.private_subnet_range,env)}"
+  aws_cluster_name="${lookup(local.cluster_name,env)}"
+  eks_worker_desired_capacity="${lookup(local.worker_desired_capacity,env)}"
+  eks_worker_min_size="${lookup(local.worker_min_size,env)}"
+  eks_worker_max_size="${lookup(local.worker_max_size,env)}"
 }
 
 variable "region" {
@@ -65,47 +80,6 @@ variable "ssh_public_key" {
   description = "the ssh key value"
 }
 
-variable "aws_availability_zone_count" {
-    description = "Number of AWS availability zones to use"
-    default = 3
-}
-variable "aws_env_type_count" {
-    description = "Number of environment types to use - currently 3 - DEV/QA/PROD"
-    default = 3
-}
-
-variable "aws_public_subnet_count" {
-    description = "Number of public subnets created - aws_availability_zone_count X aws_env_type_count"
-    default = 9
-}
-
-variable "aws_private_subnet_count" {
-    description = "Number of private subnets created - aws_availability_zone_count X aws_env_type_count"
-    default = 9
-}
-
-data "aws_subnet_ids" "Public_Subnet_id_list" {
-  vpc_id = "${module.vpc_network.vpc_id}"
-  tags = {
-    Tier = "Public"
-  }
-  depends_on = ["module.subnets"]
-}
-
-data "aws_subnet_ids" "Public_PROD_Subnet_id_list" {
-  vpc_id = "${module.vpc_network.vpc_id}"
-  tags = {
-    Tier = "Public"
-    ENV = "PROD"
-  }
-  depends_on = ["module.subnets"]
-}
-
-variable "aws_cluster_name" {
-  default = "aiops-eks-v1"
-  type    = "string"
-}
-
 variable "aws_eks_cluser_arn" {
   type    = "string"
 }
@@ -116,19 +90,6 @@ variable "aws_eks_nodes_role_name" {
 
 variable "eks_worker_instance_type" {
   default = "p2.xlarge"
-}
-
-
-variable "eks_worker_desired_capacity" {
-  default = 3
-}
-
-variable "eks_worker_min_size" {
-  default = 1
-}
-
-variable "eks_worker_max_size" {
-  default = 3
 }
 
 variable "aws_ebs_size" {

@@ -7,7 +7,7 @@ resource "aws_eks_cluster" "eks_cluser_prod" {
   }
   vpc_config {
     security_group_ids = ["${var.EKS_Cluster_Security_Group}"]
-    subnet_ids         = ["${var.Public_PROD_Subnet_id_list}"]
+    subnet_ids         = ["${var.Public_Subnet_id_list}"]
   }
 
 }

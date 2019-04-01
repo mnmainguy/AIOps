@@ -24,7 +24,7 @@ variable "eks_node_userdata" {
 variable "cluster_name" {
 }
 
-variable "Public_PROD_Subnet_id_list" {
+variable "Public_Subnet_id_list" {
   type = "list"
 }
 

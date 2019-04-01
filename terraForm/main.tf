@@ -12,7 +12,7 @@ provider "aws" {
 module "vpc_network" {
   source = "./modules/network/vpc/"
   cidr_block = "${var.vpc_cidr_block}"
-  cluster_name = "${var.aws_cluster_name}"
+  cluster_name = "${local.aws_cluster_name}"
  }
 
 module "internet_gateway" {
@@ -23,18 +23,18 @@ module "internet_gateway" {
 module "security_groups" {
   source = "./modules/network/security_groups/"
   vpc_id = "${module.vpc_network.vpc_id}"
-  cluster_name = "${var.aws_cluster_name}"
+  cluster_name = "${local.aws_cluster_name}"
 }
 
 module "subnets" {
   source = "./modules/network/subnets/"
   vpc_id = "${module.vpc_network.vpc_id}"
-  availability_zone_count = "${var.aws_availability_zone_count}"
-  aws_availability_zone_names = "${var.aws_availability_zone_names}"
-  public_subnet_range = "${var.aws_public_subnet_range}"
-  private_subnet_range = "${var.aws_public_subnet_range}"
-  aiops_env = "${var.aiops_env}"
-  cluster_name = "${var.aws_cluster_name}"
+  availability_zone_count = "${local.aws_availability_zone_count}"
+  aws_availability_zone_names = "${local.aws_availability_zone_names}"
+  public_subnet_range = "${local.aws_public_subnet_range}"
+  private_subnet_range = "${local.aws_private_subnet_range}"
+  aiops_env = "${local.env}"
+  cluster_name = "${local.aws_cluster_name}"
 }
 
 module "route_tables" {
@@ -42,8 +42,8 @@ module "route_tables" {
   vpc_id = "${module.vpc_network.vpc_id}"
   igw_id = "${module.internet_gateway.igw_id}"
   cidr_block = "${var.vpc_cidr_block}"
-  public_subnet_count = "${var.aws_public_subnet_count}"
-  Public_Subnet_id_list = "${data.aws_subnet_ids.Public_Subnet_id_list.ids}"
+  public_subnet_count = "${local.aws_public_subnet_count}"
+  Public_Subnet_id_list = "${module.subnets.public_subnet_ids}"
 }
 
 module "s3" { 
@@ -62,31 +62,30 @@ module "s3" {
 
 module "eks_cluster" {
   source = "./modules/k8s/eks_cluster/"
-  cluster_name = "${var.aws_cluster_name}"
+  cluster_name = "${local.aws_cluster_name}"
   eks_cluser_role_arn = "${var.aws_eks_cluser_arn}"
   eks_nodes_role_name = "${var.aws_eks_nodes_role_name}"
   EKS_Cluster_Security_Group = ["${module.security_groups.eks_cluser_security_groups}"]
-  Public_PROD_Subnet_id_list = "${data.aws_subnet_ids.Public_PROD_Subnet_id_list.ids}"
+  Public_Subnet_id_list = "${module.subnets.public_subnet_ids}"
 }
 
 module "eks_worker" {
   source = "./modules/k8s/eks_worker"
-  cluster_name = "${var.aws_cluster_name}"
+  cluster_name = "${local.aws_cluster_name}"
   aws_eks_version = "${module.eks_cluster.aws_eks_version}"
   eks_node_userdata = "${module.eks_cluster.eks_node_userdata}"
   EKS_Node_Security_Group = ["${module.security_groups.eks_node_security_groups}"]
   eks_nodes_role_name = "${var.aws_eks_nodes_role_name}"
-  Public_PROD_Subnet_id_list = "${data.aws_subnet_ids.Public_PROD_Subnet_id_list.ids}"
+  Public_Subnet_id_list = "${module.subnets.public_subnet_ids}"
   eks_worker_instance_type = "${var.eks_worker_instance_type}"
-  eks_worker_desired_capacity = "${var.eks_worker_desired_capacity}"
-  eks_worker_max_size = "${var.eks_worker_max_size}"
-  eks_worker_min_size = "${var.eks_worker_min_size}"
+  eks_worker_desired_capacity = "${local.eks_worker_desired_capacity}"
+  eks_worker_max_size = "${local.eks_worker_max_size}"
+  eks_worker_min_size = "${local.eks_worker_min_size}"
   key_name = "${var.ssh_key_name}"
 }
 
 module "eks_ebs" {
   source = "./modules/k8s/eks_ebs"
-  Public_PROD_Subnet_id_list = "${data.aws_subnet_ids.Public_PROD_Subnet_id_list.ids}"
   EBSsize = "${var.aws_ebs_size}"
-  availability_zone_count = "${var.aws_availability_zone_count}"
+  availability_zone_count = "${local.aws_availability_zone_count}"
 }
