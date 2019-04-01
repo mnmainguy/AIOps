@@ -24,6 +24,7 @@ resource "aws_security_group" "eks_node_in_out" {
   tags = {
     Name = "aiops-eks-nodes"
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+    KubernetesCluster = "${var.cluster_name}"
   }
 }
 
