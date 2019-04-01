@@ -10,6 +10,7 @@ resource "aws_launch_configuration" "eks_prod_worker" {
   instance_type               = "${var.eks_worker_instance_type}"
   name_prefix                 = "eks_prod_worker"
   security_groups             = ["${var.EKS_Node_Security_Group}"]
+  key_name                    = "${var.key_name}"	
   user_data_base64            = "${base64encode(var.eks_node_userdata)}"
 
   lifecycle {

@@ -19,5 +19,5 @@ output "eks_cluser_security_groups" {
 }
 
 output "eks_node_security_groups" {
-  value = ["${aws_security_group.eks_node_in_out.id}"]
+  value = ["${aws_security_group.eks_node_in_out.id}","${aws_security_group.ssh_in_out.id}"]
 }

@@ -67,7 +67,6 @@ module "eks_cluster" {
   eks_nodes_role_name = "${var.aws_eks_nodes_role_name}"
   EKS_Cluster_Security_Group = ["${module.security_groups.eks_cluser_security_groups}"]
   Public_PROD_Subnet_id_list = "${data.aws_subnet_ids.Public_PROD_Subnet_id_list.ids}"
-  eks_git_token = "${var.eks_git_token}"
 }
 
 module "eks_worker" {
@@ -82,6 +81,7 @@ module "eks_worker" {
   eks_worker_desired_capacity = "${var.eks_worker_desired_capacity}"
   eks_worker_max_size = "${var.eks_worker_max_size}"
   eks_worker_min_size = "${var.eks_worker_min_size}"
+  key_name = "${var.ssh_key_name}"
 }
 
 module "eks_ebs" {
