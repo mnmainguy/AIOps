@@ -9,13 +9,13 @@ clusters:
 contexts:
 - context:
     cluster: kubernetes
-    user: aws
-  name: aws
-current-context: aws
+    user: aws-${var.aiops_env}
+  name: aws-${var.aiops_env}
+current-context: aws-${var.aiops_env}
 kind: Config
 preferences: {}
 users:
-- name: aws
+- name: aws-${var.aiops_env}
   user:
     exec:
       apiVersion: client.authentication.k8s.io/v1alpha1

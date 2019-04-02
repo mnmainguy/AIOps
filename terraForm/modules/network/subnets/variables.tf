@@ -6,8 +6,6 @@ variable "availability_zone_count" {
   description = "Count of current availability zones in us west-2"
 }
 
-variable "aws_availability_zone_names" {
-}
 
 variable "cluster_name" {
 }
@@ -20,3 +18,5 @@ variable "public_subnet_range" {
 
 variable "private_subnet_range" {
 }
+
+data "aws_availability_zones" "available" {}

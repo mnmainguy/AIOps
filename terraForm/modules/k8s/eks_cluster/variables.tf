@@ -15,3 +15,6 @@ variable "Public_Subnet_id_list" {
 
 variable "cluster_name" {
 }
+
+variable "aiops_env" {
+}
