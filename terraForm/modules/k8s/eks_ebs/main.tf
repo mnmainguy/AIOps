@@ -4,6 +4,6 @@ resource "aws_ebs_volume" "EKS_lb" {
   size              = "${var.EBSsize}"
 
   tags = {
-    Name = "EKS_lb"
+    Name = "EKS_lb-${var.aiops_env}"
   }
 }

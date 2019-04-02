@@ -3,50 +3,50 @@ locals {
   aws_az_count = {
     "default" = 2
     "TOOLS" = 2
-    "TRAIN" = 3
-    "PROD" = 4 
+    "train" = 3
+    "prod" = 4 
   
   }
   public_subnet_range = {
     "default" = 1
     "TOOLS" = 1
-    "TRAIN" = 3
-    "PROD" = 5 
+    "train" = 3
+    "prod" = 5 
   
   }
 
   private_subnet_range = {
     "default" = 2
     "TOOLS" = 2
-    "TRAIN" = 4
-    "PROD" = 6 
+    "train" = 4
+    "prod" = 6 
   }
 
  cluster_name = {
     "default" = "kubeflow"
-    "TOOLS" = "kubeflow"
-    "TRAIN" = "mnist_train"
-    "PROD" = "mnist_prod" 
+    "TOOLS" = "kubeflow_TOOLS"
+    "train" = "mnist_train"
+    "prod" = "mnist_prod" 
   }
   worker_desired_capacity = {
     "default" = 1
     "TOOLS" = 1
-    "TRAIN" = 2
-    "PROD" = 2
+    "train" = 2
+    "prod" = 2
   }
 
   worker_min_size = {
     "default" = 1
     "TOOLS" = 1
-    "TRAIN" = 3
-    "PROD" = 3
+    "train" = 1
+    "prod" = 2
   }
   
   worker_max_size = {
     "default" = 3
     "TOOLS" = 3
-    "TRAIN" = 4
-    "PROD" = 4
+    "train" = 4
+    "prod" = 4
   }
 
 }

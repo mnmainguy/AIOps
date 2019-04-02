@@ -51,6 +51,7 @@ module "route_tables" {
 
 module "s3" { 
   source = "./modules/s3/"
+  aiops_env = "${module.workspaces.env}"
 }
 
 module "eks_cluster" {
@@ -76,10 +77,12 @@ module "eks_worker" {
   eks_worker_max_size = "${module.workspaces.eks_worker_max_size}"
   eks_worker_min_size = "${module.workspaces.eks_worker_min_size}"
   key_name = "${var.ssh_key_name}"
+  aiops_env = "${module.workspaces.env}"
 }
 
 module "eks_ebs" {
   source = "./modules/k8s/eks_ebs"
   EBSsize = "${var.aws_ebs_size}"
   availability_zone_count = "${module.workspaces.aws_availability_zone_count}"
+  aiops_env = "${module.workspaces.env}"
 }

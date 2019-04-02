@@ -3,12 +3,12 @@ locals {
 apiVersion: v1
 clusters:
 - cluster:
-    server: ${aws_eks_cluster.eks_cluser_prod.endpoint}
-    certificate-authority-data: ${aws_eks_cluster.eks_cluser_prod.certificate_authority.0.data}
-  name: kubernetes
+    server: ${aws_eks_cluster.eks_cluser.endpoint}
+    certificate-authority-data: ${aws_eks_cluster.eks_cluser.certificate_authority.0.data}
+  name: kubernetes-${var.aiops_env}
 contexts:
 - context:
-    cluster: kubernetes
+    cluster: kubernetes-${var.aiops_env}
     user: aws-${var.aiops_env}
   name: aws-${var.aiops_env}
 current-context: aws-${var.aiops_env}
@@ -57,19 +57,29 @@ output "config_map_aws_auth" {
 }
 
 output "aws_eks_id" {
-  value = "${aws_eks_cluster.eks_cluser_prod.id}"
+  value = "${aws_eks_cluster.eks_cluser.id}"
 }
 
 output "aws_eks_version" {
-  value = "${aws_eks_cluster.eks_cluser_prod.version}"
+  value = "${aws_eks_cluster.eks_cluser.version}"
 }
 
 locals {
   eks_node_userdata = <<USERDATA
                         #!/bin/bash
                         set -o xtrace
-                        /etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.eks_cluser_prod.endpoint}' --b64-cluster-ca '${aws_eks_cluster.eks_cluser_prod.certificate_authority.0.data}' '${var.cluster_name}'
+                        /etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.eks_cluser.endpoint}' --b64-cluster-ca '${aws_eks_cluster.eks_cluser.certificate_authority.0.data}' '${var.cluster_name}'
                         
+                        if [ "${var.aiops_env}" == "tools" ]; then
+                          export KS_VER=0.13.1
+                          export KS_PKG=ks_$${KS_VER}_linux_amd64
+                          wget -O /tmp/$${KS_PKG}.tar.gz https://github.com/ksonnet/ksonnet/releases/download/v$${KS_VER}/$${KS_PKG}.tar.gz
+                          mkdir -p $${HOME}/bin
+                          tar -xvf /tmp/$$KS_PKG.tar.gz -C $${HOME}/bin
+                          export PATH=$$PATH:$${HOME}/bin/$$KS_PKG 
+                          echo 'export PATH=/usr/local/bin:$$PATH' >>~/.profile
+                        fi
+
                         USERDATA
 }
 

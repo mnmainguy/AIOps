@@ -2,8 +2,8 @@ apiVersion: 0.3.0
 environments:
   default:
     destination:
-      namespace: kubeflow
-      server: https://F7DA2757CCA1E28E6C1A4CC37C6D5AFB.yl4.us-west-2.eks.amazonaws.com
+      namespace: mnist
+      server: https://5D360233ABFB4F946FC6F22C40A09AF8.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.11.8
     path: default
 kind: ksonnet.io/app

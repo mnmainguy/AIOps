@@ -5,4 +5,7 @@ resource "aws_vpc" "aiops-vpc" {
     Name = "aiops-eks-node"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }

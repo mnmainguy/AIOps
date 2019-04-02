@@ -22,20 +22,25 @@ resource "null_resource" "ApplyAWSCredentials" {
   provisioner "local-exec" {
     command = <<EOT
                 
-                export KUBECONFIG=$${KUBECONFIG:+$${KUBECONFIG}:}config-${module.workspaces.env}
-                kubectl config set-context=aws-${module.workspaces.env}
+                export KUBECONFIG=~/.kube/config-${module.workspaces.env}
+                kubectl config set-context aws-${module.workspaces.env}
 
                 kubectl apply -f config_map_aws_auth.yml
                 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.10/nvidia-device-plugin.yml
 
-                if [ "${module.workspaces.env}" == "TOOLS" ]; then
+                if [ "${module.workspaces.env}" == "tools" ]; then
                   export KUBEFLOW_SRC=kubeflow
                   export KFAPP=eks-kubeflow
                   cd ../$${KUBEFLOW_SRC}
-                  $${KUBEFLOW_SRC}/scripts/kfctl.sh init $${KFAPP} --platform none
+                  [[ -d $${KFAPP} ]] || ./scripts/kfctl.sh init $${KFAPP} --platform none
                   cd $${KFAPP}
-                  $${KUBEFLOW_SRC}/scripts/kfctl.sh generate k8s
-                  $${KUBEFLOW_SRC}/scripts/kfctl.sh apply k8s
+                  ../scripts/kfctl.sh generate k8s
+                  ../scripts/kfctl.sh apply k8s
+
+                  ARGO_CD_LATEST=$$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+                  kubectl create namespace argocd
+                  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$ARGO_CD_LATEST/manifests/install.yaml
+                  kubectl create clusterrolebinding MikeMainguy-cluster-admin-binding --clusterrole=cluster-admin --user=mnmainguy1@gmail.com
                 fi
 
               EOT

@@ -44,3 +44,6 @@ variable "eks_worker_max_size" {
 
 variable "key_name" {
 }
+
+variable "aiops_env" {
+}

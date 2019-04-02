@@ -10,6 +10,9 @@ resource "aws_subnet" "public" {
     ENV = "${var.aiops_env}"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }
 
 resource "aws_subnet" "private" {
@@ -23,5 +26,8 @@ resource "aws_subnet" "private" {
     Tier = "Private"
     ENV = "${var.aiops_env}"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+  }
+  lifecycle {
+    ignore_changes = ["tags"]
   }
 }
