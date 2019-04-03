@@ -32,7 +32,7 @@
       serviceType: 'ClusterIP',
       trafficRule: 'v1:100',
     },
-    "mnist-web-ui": {
+    "web-ui": {
       containerPort: 5000,
       image: 'docker.io/mmainguy/mnist-ui',
       name: 'mnist-web-ui',

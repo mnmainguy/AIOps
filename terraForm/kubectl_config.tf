@@ -21,7 +21,7 @@ resource "null_resource" "ApplyAWSCredentials" {
   }
   provisioner "local-exec" {
     command = <<EOT
-                
+                . ~/.profile
                 export KUBECONFIG=$$HOME/.kube/config-${module.workspaces.env}
                 kubectl config set-context aws-${module.workspaces.env}
 
@@ -34,7 +34,7 @@ resource "null_resource" "ApplyAWSCredentials" {
 
                 kubectl create secret generic aws-creds -n mnist --from-literal=awsAccessKeyID=${var.access_key}   --from-literal=awsSecretAccessKey=${var.secret_key}
 
-                cd ../setup_ks_app
+                cd ../setup_ks_apps
                 ks apply kubeflow-${module.workspaces.env}
                 
 

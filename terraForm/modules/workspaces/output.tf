@@ -27,13 +27,13 @@ locals {
   worker_desired_capacity = {
     "default" = 2
     "train" = 2
-    "prod" = 2
+    "prod" = 1
   }
 
   worker_min_size = {
     "default" = 1
     "train" = 1
-    "prod" = 2
+    "prod" = 1
   }
   
   worker_max_size = {
