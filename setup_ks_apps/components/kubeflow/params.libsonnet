@@ -1,0 +1,76 @@
+{
+  global: {},
+  components: {
+    // Component-level parameters, defined initially from 'ks prototype use ...'
+    // Each object below should correspond to a component in the components/ directory
+    "pytorch-operator": {
+      cloud: 'null',
+      deploymentNamespace: 'null',
+      deploymentScope: 'cluster',
+      disks: 'null',
+      name: 'pytorch-operator',
+      pytorchDefaultImage: 'null',
+      pytorchJobImage: 'gcr.io/kubeflow-images-public/pytorch-operator:v0.4.0',
+      pytorchJobVersion: 'v1beta1',
+    },
+    ambassador: {
+      ambassadorImage: 'quay.io/datawire/ambassador:0.37.0',
+      ambassadorServiceType: 'LoadBalancer',
+      name: 'ambassador',
+      platform: 'null',
+    },
+    jupyter: {
+      accessLocalFs: 'false',
+      gcpSecretName: 'user-gcp-sa',
+      image: 'gcr.io/kubeflow/jupyterhub-k8s:v20180531-3bb991b1',
+      jupyterHubAuthenticator: 'null',
+      name: 'jupyter',
+      notebookGid: '-1',
+      notebookUid: '-1',
+      platform: 'null',
+      rokSecretName: 'secret-rok-{username}',
+      serviceType: 'ClusterIP',
+      storageClass: 'null',
+      ui: 'default',
+      useJupyterLabAsDefault: 'false',
+    },
+    centraldashboard: {
+      image: 'gcr.io/kubeflow-images-public/centraldashboard:v0.4.0',
+      name: 'centraldashboard',
+    },
+    "tf-job-operator": {
+      cloud: 'null',
+      deploymentNamespace: 'null',
+      deploymentScope: 'cluster',
+      name: 'tf-job-operator',
+      tfDefaultImage: 'null',
+      tfJobImage: 'gcr.io/kubeflow-images-public/tf_operator:v0.4.0',
+      tfJobUiServiceType: 'ClusterIP',
+      tfJobVersion: 'v1beta1',
+    },
+    metacontroller: {
+      image: 'metacontroller/metacontroller:v0.3.0',
+      name: 'metacontroller',
+    },
+    argo: {
+      executorImage: 'argoproj/argoexec:v2.2.0',
+      name: 'argo',
+      uiImage: 'argoproj/argoui:v2.2.0',
+      workflowControllerImage: 'argoproj/workflow-controller:v2.2.0',
+    },
+    pipeline: {
+      apiImage: 'gcr.io/ml-pipeline/api-server:0.1.7',
+      minioImage: 'minio/minio:RELEASE.2018-02-09T22-40-05Z',
+      mysqlImage: 'mysql:5.6',
+      name: 'pipeline',
+      persistenceAgentImage: 'gcr.io/ml-pipeline/persistenceagent:0.1.7',
+      scheduledWorkflowImage: 'gcr.io/ml-pipeline/scheduledworkflow:0.1.7',
+      uiImage: 'gcr.io/ml-pipeline/frontend:0.1.7',
+    },
+    spartakus: {
+      name: 'spartakus',
+      reportUsage: 'true',
+      usageId: '362616011',
+    },
+  },
+}

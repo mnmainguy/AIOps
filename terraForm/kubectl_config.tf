@@ -7,7 +7,7 @@ resource "null_resource" "makeKubeConfig" {
     template = "${local_file.eks_config.content}"
   }
   provisioner "local-exec" {
-    command = "cp kubeconfig ~/.kube/config-${module.workspaces.env}"
+    command = "cp kubeconfig $$HOME/.kube/config-${module.workspaces.env}"
   }
 }
 resource "local_file" "config_map_aws_auth" {
@@ -22,26 +22,27 @@ resource "null_resource" "ApplyAWSCredentials" {
   provisioner "local-exec" {
     command = <<EOT
                 
-                export KUBECONFIG=~/.kube/config-${module.workspaces.env}
+                export KUBECONFIG=$$HOME/.kube/config-${module.workspaces.env}
                 kubectl config set-context aws-${module.workspaces.env}
 
                 kubectl apply -f config_map_aws_auth.yml
                 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.10/nvidia-device-plugin.yml
 
-                if [ "${module.workspaces.env}" == "tools" ]; then
-                  export KUBEFLOW_SRC=kubeflow
-                  export KFAPP=eks-kubeflow
-                  cd ../$${KUBEFLOW_SRC}
-                  [[ -d $${KFAPP} ]] || ./scripts/kfctl.sh init $${KFAPP} --platform none
-                  cd $${KFAPP}
-                  ../scripts/kfctl.sh generate k8s
-                  ../scripts/kfctl.sh apply k8s
+                kubectl create namespace kubeflow
+                kubectl create namespace mnist
+                kubectl create namespace argocd
 
-                  ARGO_CD_LATEST=$$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
-                  kubectl create namespace argocd
-                  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$ARGO_CD_LATEST/manifests/install.yaml
-                  kubectl create clusterrolebinding MikeMainguy-cluster-admin-binding --clusterrole=cluster-admin --user=mnmainguy1@gmail.com
-                fi
+                kubectl create secret generic aws-creds -n mnist --from-literal=awsAccessKeyID=${var.access_key}   --from-literal=awsSecretAccessKey=${var.secret_key}
+
+                cd ../setup_ks_app
+                ks apply kubeflow-${module.workspaces.env}
+                
+
+                #   ARGO_CD_LATEST=$$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+                #   kubectl create namespace argocd
+                #   kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$ARGO_CD_LATEST/manifests/install.yaml
+                #   kubectl create clusterrolebinding MikeMainguy-cluster-admin-binding --clusterrole=cluster-admin --user=mnmainguy1@gmail.com
+                # fi
 
               EOT
   }

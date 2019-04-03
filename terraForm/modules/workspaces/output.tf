@@ -1,52 +1,45 @@
 locals {
   env="${terraform.workspace}"
   aws_az_count = {
-    "default" = 2
-    "TOOLS" = 2
+    "default" = 3
     "train" = 3
     "prod" = 4 
   
   }
   public_subnet_range = {
     "default" = 1
-    "TOOLS" = 1
-    "train" = 3
-    "prod" = 5 
+    "train" = 1
+    "prod" = 2
   
   }
 
   private_subnet_range = {
     "default" = 2
-    "TOOLS" = 2
-    "train" = 4
-    "prod" = 6 
+    "train" = 2
+    "prod" = 4 
   }
 
  cluster_name = {
-    "default" = "kubeflow"
-    "TOOLS" = "kubeflow_TOOLS"
+    "default" = "mnist_train"
     "train" = "mnist_train"
     "prod" = "mnist_prod" 
   }
   worker_desired_capacity = {
-    "default" = 1
-    "TOOLS" = 1
+    "default" = 2
     "train" = 2
     "prod" = 2
   }
 
   worker_min_size = {
     "default" = 1
-    "TOOLS" = 1
     "train" = 1
     "prod" = 2
   }
   
   worker_max_size = {
     "default" = 3
-    "TOOLS" = 3
-    "train" = 4
-    "prod" = 4
+    "train" = 6
+    "prod" = 6
   }
 
 }

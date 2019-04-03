@@ -1,0 +1,117 @@
+apiVersion: 0.3.0
+environments:
+  kubeflow-train:
+    destination:
+      namespace: kubeflow
+      server: https://ED9ECB36F984C5BA4C342D91F1085B8D.yl4.us-west-2.eks.amazonaws.com
+    k8sVersion: v1.12.6
+    path: kubeflow-train
+    targets:
+    - kubeflow
+  mnist-train:
+    destination:
+      namespace: mnist
+      server: https://ED9ECB36F984C5BA4C342D91F1085B8D.yl4.us-west-2.eks.amazonaws.com
+    k8sVersion: v1.12.6
+    path: mnist-train
+    targets:
+    - mnist-train
+  argocd-train:
+    destination:
+      namespace: argocd
+      server: https://ED9ECB36F984C5BA4C342D91F1085B8D.yl4.us-west-2.eks.amazonaws.com
+    k8sVersion: v1.12.6
+    path: argocd-train
+    targets:
+    - argocd
+  kubeflow-prod:
+    destination:
+      namespace: kubeflow
+      server: 
+    k8sVersion: v1.12.6
+    path: kubeflow-train
+    targets:
+    - kubeflow
+  mnist-prod:
+    destination:
+      namespace: mnist
+      server: 
+    k8sVersion: v1.12.6
+    path: mnist-prod
+    targets:
+    - mnist-serve
+kind: ksonnet.io/app
+libraries:
+  kubeflow/application:
+    name: application
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/argo:
+    name: argo
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/common:
+    name: common
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/examples:
+    name: examples
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/jupyter:
+    name: jupyter
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/katib:
+    name: katib
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/metacontroller:
+    name: metacontroller
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/modeldb:
+    name: modeldb
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/mpi-job:
+    name: mpi-job
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/openvino:
+    name: openvino
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/pipeline:
+    name: pipeline
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/profiles:
+    name: profiles
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/pytorch-job:
+    name: pytorch-job
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/seldon:
+    name: seldon
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/tf-serving:
+    name: tf-serving
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+  kubeflow/tf-training:
+    name: tf-training
+    registry: kubeflow
+    version: 797bcb7407a589bacc35b9624120f51f36a83468
+name: setup_ks_apps
+registries:
+  incubator:
+    protocol: github
+    uri: github.com/ksonnet/parts/tree/master/incubator
+  kubeflow:
+    protocol: github
+    uri: github.com/kubeflow/kubeflow/tree/v0.4.1/kubeflow
+version: 0.0.1
