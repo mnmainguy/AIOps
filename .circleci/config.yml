@@ -16,21 +16,10 @@ jobs:
             cp /aiops/mnist/model.py /opt/model.py
             chmod +x /opt/model.py
       - run:
+          name: Test run model.py
+          command: |
+           /usr/bin/python /aiops/mnist/model.py
+      - run:
           name: Run model.py
           command: |
            /usr/bin/python /aiops/mnist/model.py
-           
-      # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
-      # - run:
-      #     name: run tests
-      #     command: |
-      #       . venv/bin/activate
-      #       python manage.py test
-
-      # - store_artifacts:
-      #     path: test-reports
-      #     destination: test-reports
