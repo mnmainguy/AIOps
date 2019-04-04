@@ -1,0 +1,10 @@
+source:
+  repoURL: 'https://github.com/mnmainguy/AIOps.git'
+  path: setup_ks_apps
+  targetRevision: master
+  ksonnet:
+    environment: kubeflow-prod
+destination:
+  server: 'https://01F444244D6AAF3456C7CEA41F357223.yl4.us-west-2.eks.amazonaws.com'
+  namespace: kubeflow
+project: default

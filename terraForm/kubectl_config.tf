@@ -21,6 +21,7 @@ resource "null_resource" "ApplyAWSCredentials" {
   }
   provisioner "local-exec" {
     command = <<EOT
+
                 . ~/.profile
                 export KUBECONFIG=$$HOME/.kube/config-${module.workspaces.env}
                 kubectl config set-context aws-${module.workspaces.env}
@@ -30,20 +31,20 @@ resource "null_resource" "ApplyAWSCredentials" {
 
                 kubectl create namespace kubeflow
                 kubectl create namespace mnist
-                kubectl create namespace argocd
 
                 kubectl create secret generic aws-creds -n mnist --from-literal=awsAccessKeyID=${var.access_key}   --from-literal=awsSecretAccessKey=${var.secret_key}
 
                 cd ../setup_ks_apps
                 ks apply kubeflow-${module.workspaces.env}
+
+                if [ "${module.workspaces.env}" == "train" ]; then
+                  kubectl create namespace argocd
+                  kubectl create namespace argo
+                  ks apply argocd-${module.workspaces.env}
+                  ks apply argo-${module.workspaces.env}
                 
-
-                #   ARGO_CD_LATEST=$$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
-                #   kubectl create namespace argocd
-                #   kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$ARGO_CD_LATEST/manifests/install.yaml
-                #   kubectl create clusterrolebinding MikeMainguy-cluster-admin-binding --clusterrole=cluster-admin --user=mnmainguy1@gmail.com
-                # fi
-
+                fi
+                
               EOT
   }
 }

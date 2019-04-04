@@ -1,0 +1,12 @@
+source:
+  repoURL: 'https://github.com/mnmainguy/AIOps.git'
+  path: setup_ks_apps
+  targetRevision: master
+  ksonnet:
+    environment: mnist-train
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: mnist
+project: default
+syncPolicy:
+  automated: {}
