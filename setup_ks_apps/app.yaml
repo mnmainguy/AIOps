@@ -8,6 +8,14 @@ environments:
     path: argocd-train
     targets:
     - argocd
+  argo-train:
+    destination:
+      namespace: argocd
+      server: https://ED9ECB36F984C5BA4C342D91F1085B8D.yl4.us-west-2.eks.amazonaws.com
+    k8sVersion: v1.12.6
+    path: argo-train
+    targets:
+    - argo
   kubeflow-prod:
     destination:
       namespace: kubeflow
