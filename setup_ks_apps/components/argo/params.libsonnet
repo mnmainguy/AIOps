@@ -48,7 +48,10 @@
     "deployment-workflow-controller-olifn": {
 
     },
-    "application-argoci-vukxf": {
+    "service-argoci-nkgar": {
+
+    },
+    "deployment-argoci-yutfx": {
 
     },
   },
