@@ -1,12 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: mnist-docker-build
+  name: mnist-docker-build
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   entrypoint: docker-build
+  ServiceAccountName: argo
   templates:
   - name: docker-build
     inputs:
@@ -19,13 +20,13 @@ spec:
           repo: https://github.com/mnmainguy/AIOps.git
           revision: "master"
     container:
-      image: docker:17.10
+      image: docker:18.06.0
       command: [sh, -c]
       args: ["until docker ps; do sleep 3; done; cd /src/mnist_example; 
-            echo $DOCKER_HOST;
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD; 
             docker build . -f Dockerfile.model -t mmainguy/mnist-train; 
-            docker push mmainguy/mnist-train"]
+            docker push mmainguy/mnist-train;
+            docker logout"]
       env:
       - name: DOCKER_HOST               # the docker daemon can be access on the standard port on localhost
         value: 127.0.0.1
@@ -41,7 +42,7 @@ spec:
             key: dockerPassword
     sidecars:
     - name: dind
-      image: docker:17.10-dind          # Docker already provides an image for running a Docker daemon
+      image: docker:18.06.0-dind          # Docker already provides an image for running a Docker daemon
       securityContext:
         privileged: true                # the Docker daemon can only run in a privileged container
       # mirrorVolumeMounts will mount the same volumes specified in the main container

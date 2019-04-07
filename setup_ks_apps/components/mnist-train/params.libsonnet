@@ -19,6 +19,15 @@
       numGpus: 1,
       device: "gpu"
     },
+    "serviceaccount-argo-dpuur": {
+
+    },
+    "clusterrole-argo-cluster-role-vkbjn": {
+
+    },
+    "clusterrolebinding-argo-binding-mqgke": {
+
+    },
     "workflow-mnist-docker-build": {
 
     },
