@@ -38,6 +38,8 @@ local replicaSpec = {
         "--tf-train-steps=" + params.trainSteps,
         "--tf-batch-size=" + params.batchSize,
         "--tf-learning-rate=" + params.learningRate,
+        "--tf-num_gpus=" + params.numGpus,
+        "--tf-device=" + params.device,
       ],
       env: util.parseEnv(params.envVariables) + trainSecrets,
       image: params.image,
@@ -75,6 +77,7 @@ local tfjob = {
     namespace: env.namespace,
   },
   spec: {
+    ttlSecondsAfterFinished: 5,
     tfReplicaSpecs: {
       Chief: {
         replicas: 1,

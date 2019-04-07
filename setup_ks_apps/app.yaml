@@ -1,13 +1,5 @@
 apiVersion: 0.3.0
 environments:
-  argocd-train:
-    destination:
-      namespace: argocd
-      server: https://ED9ECB36F984C5BA4C342D91F1085B8D.yl4.us-west-2.eks.amazonaws.com
-    k8sVersion: v1.12.6
-    path: argocd-train
-    targets:
-    - argocd
   argo-train:
     destination:
       namespace: argo
@@ -16,6 +8,14 @@ environments:
     path: argo-train
     targets:
     - argo
+  argocd-train:
+    destination:
+      namespace: argocd
+      server: https://ED9ECB36F984C5BA4C342D91F1085B8D.yl4.us-west-2.eks.amazonaws.com
+    k8sVersion: v1.12.6
+    path: argocd-train
+    targets:
+    - argocd
   kubeflow-prod:
     destination:
       namespace: kubeflow
@@ -32,14 +32,6 @@ environments:
     path: kubeflow-train
     targets:
     - kubeflow
-  mnist-prod:
-    destination:
-      namespace: mnist
-      server: https://01F444244D6AAF3456C7CEA41F357223.yl4.us-west-2.eks.amazonaws.com
-    k8sVersion: v1.12.6
-    path: mnist-prod
-    targets:
-    - mnist-serve
   mnist-train:
     destination:
       namespace: mnist
@@ -48,6 +40,14 @@ environments:
     path: mnist-train
     targets:
     - mnist-train
+  mnist-prod:
+    destination:
+      namespace: mnist
+      server: https://01F444244D6AAF3456C7CEA41F357223.yl4.us-west-2.eks.amazonaws.com
+    k8sVersion: v1.12.6
+    path: mnist-prod
+    targets:
+    - mnist-serve
 kind: ksonnet.io/app
 libraries:
   kubeflow/application:

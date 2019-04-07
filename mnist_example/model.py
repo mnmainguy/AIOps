@@ -61,6 +61,14 @@ def parse_arguments():
                       type=float,
                       default=0.01,
                       help='Learning rate for training.')
+  parser.add_argument('--tf-num_gpus',
+                      type=int,
+                      default=1,
+                      help='Number of GPUs for training.')         
+  parser.add_argument('--tf-device',
+                      type=str,
+                      default='gpu',
+                      help='Number of processor for training.')              
 
   args = parser.parse_args()
   return args

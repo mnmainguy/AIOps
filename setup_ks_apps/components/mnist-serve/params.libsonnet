@@ -13,7 +13,7 @@
       modelBasePath: 's3://aiops-train/export/',
       modelName: 'mnist',
       name: 'mnist-deploy-aws',
-      numGpus: '0',
+      numGpus: '1',
       s3AwsRegion: 'us-west-2',
       s3Enable: 'true',
       s3Endpoint: 's3.us-west-2.amazonaws.com',
