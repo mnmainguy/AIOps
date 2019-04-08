@@ -49,7 +49,7 @@ def main():
                                        server_name=name_arg,
                                        timeout=10)
     # if no exceptions thrown, server connection was a success
-    connection["text"] = "Connected (model version: " + str(ver) + ")"
+    connection["text"] = "Connected to MNIST model"
     connection["success"] = True
     # parse class confidence scores from server prediction
     scores_dict = []

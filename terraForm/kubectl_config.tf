@@ -21,7 +21,7 @@ resource "null_resource" "ApplyAWSCredentials" {
   }
   provisioner "local-exec" {
     command = <<EOT
-
+                
                 . ~/.profile
                 export KUBECONFIG=$$HOME/.kube/config-${module.workspaces.env}
                 kubectl config set-context aws-${module.workspaces.env}
@@ -37,12 +37,11 @@ resource "null_resource" "ApplyAWSCredentials" {
                 cd ../setup_ks_apps
                 ks apply kubeflow-${module.workspaces.env}
 
-                if [ "${module.workspaces.env}" == "train" ]; then
+                if test "${module.workspaces.env}" = 'train'; then
                   kubectl create namespace argocd
                   kubectl create namespace argo
                   ks apply argocd-${module.workspaces.env}
                   ks apply argo-${module.workspaces.env}
-                
                 fi
                 
               EOT
