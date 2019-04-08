@@ -8,5 +8,5 @@ roleRef:
   name: argo-cluster-role
 subjects:
 - kind: ServiceAccount
-  name: argo
+  name: default
   namespace: mnist
