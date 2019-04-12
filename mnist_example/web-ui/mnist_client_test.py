@@ -18,13 +18,13 @@ Manually running the test
 
 import os
 
-from py import test_runner #pylint: disable=no-name-in-module
+import unittest #pylint: disable=no-name-in-module
 
 import mnist_client
 
-from kubeflow.testing import test_util
+import test_helper
 
-class MnistClientTest(test_util.TestCase):
+class MnistClientTest(test_helper.TestCase):
   def __init__(self, args):
     self.args = args
     super(MnistClientTest, self).__init__(class_name="MnistClientTest",

@@ -8,6 +8,10 @@ metadata:
 spec:
   entrypoint: docker-build
   ServiceAccountName: default
+  volumes:
+  - name: docker-storage
+    persistentVolumeClaim:
+      claimName: docker-storage
   templates:
   - name: docker-build
     inputs:
@@ -22,7 +26,8 @@ spec:
     container:
       image: docker:18.06.0
       command: [sh, -c]
-      args: ["until docker ps; do sleep 3; done; cd /src/mnist_example; 
+      args: ["until docker ps; do sleep 3; done; cd /src/mnist_example; ls /var/lib/docker;
+            docker info;
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD; 
             docker build . -f Dockerfile.model -t mmainguy/mnist-train; 
             docker push mmainguy/mnist-train;
@@ -40,9 +45,12 @@ spec:
           secretKeyRef:
             name: docker-creds
             key: dockerPassword
+      volumeMounts:
+          - name: docker-storage
+            mountPath: /var/lib/docker
     sidecars:
     - name: dind
-      image: docker:18.06.0-dind          # Docker already provides an image for running a Docker daemon
+      image: docker:18.06.0-dind          # Docker already provides an image for running a Docker daemon]
       securityContext:
         privileged: true                # the Docker daemon can only run in a privileged container
       # mirrorVolumeMounts will mount the same volumes specified in the main container

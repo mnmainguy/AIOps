@@ -93,5 +93,17 @@
     "deployment-argocd-server-wamtx": {
 
     },
+    "serviceaccount-external-dns": {
+
+    },
+    "clusterrolebinding-external-dns-viewer": {
+
+    },
+    "deployment-external-dns": {
+
+    },
+    "clusterrole-external-dns": {
+
+    },
   },
 }

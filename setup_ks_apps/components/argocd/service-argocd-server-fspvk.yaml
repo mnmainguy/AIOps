@@ -5,6 +5,8 @@ metadata:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/part-of: argocd
+  annotations:
+    "external-dns.alpha.kubernetes.io/hostname": "argocd.mikemainguy.com."
   name: argocd-server
 spec:
   ports:

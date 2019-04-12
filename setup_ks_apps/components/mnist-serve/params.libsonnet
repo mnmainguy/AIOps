@@ -40,5 +40,17 @@
       servicePort: 80,
       type: 'LoadBalancer',
     },
+    "serviceaccount-external-dns-jrfxe": {
+
+    },
+    "clusterrole-external-dns-pnxas": {
+
+    },
+    "clusterrolebinding-external-dns-viewer-bqvaj": {
+
+    },
+    "deployment-external-dns-fvtkk": {
+
+    },
   },
 }

@@ -18,6 +18,7 @@ local params = std.extVar("__ksonnet/params").components["web-ui"];
             "rewrite: /",
             "service: " + params.name + "." + env.namespace,
           ]),
+        "external-dns.alpha.kubernetes.io/hostname": "aiops.mikemainguy.com."
       },  //annotations
     },
     "spec": {
