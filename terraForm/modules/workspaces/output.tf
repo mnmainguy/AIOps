@@ -42,6 +42,17 @@ locals {
     "prod" = 6
   }
 
+  aws_ebs_size = {
+    "default" = 40
+    "train" = 40
+    "prod" = 40
+  }
+  
+   eks_worker_instance_type = {
+    "default" = "p2.xlarge"
+    "train" = "p2.xlarge"
+    "prod" = "p2.xlarge"
+  }
 }
 output "env" {
   value = "${local.env}"
@@ -67,4 +78,12 @@ output "eks_worker_min_size" {
 }
 output "eks_worker_max_size" {
   value = "${lookup(local.worker_max_size,local.env)}"
+}
+
+output "aws_ebs_size" {
+  value = "${lookup(local.aws_ebs_size,local.env)}"
+}
+
+output "eks_worker_instance_type" {
+  value = "${lookup(local.eks_worker_instance_type,local.env)}"
 }
