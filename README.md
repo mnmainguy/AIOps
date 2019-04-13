@@ -39,8 +39,11 @@ git clone https://github.com/mnmainguy/AIOps.git
 cd terraForm
 
 # View and adjust terraform variables
-# Note default EC2 instance is p2.xlarge which cost $0.09 per minute
 vi terraform.tfvars
+
+# View and adjust terraform workspace variables
+# Note default EC2 instance is p2.xlarge which cost $0.09 per minute
+vi ./modules/workspaces/output.tf
 
 # Setup training workspace
 terraform workspace new train

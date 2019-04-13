@@ -30,6 +30,10 @@ module "security_groups" {
   cluster_name = "${module.workspaces.aws_cluster_name}"
 }
 
+module "iam" {
+  source = "./modules/iam/"
+}
+
 module "subnets" {
   source = "./modules/network/subnets/"
   vpc_id = "${module.vpc_network.vpc_id}"
@@ -57,8 +61,8 @@ module "s3" {
 module "eks_cluster" {
   source = "./modules/k8s/eks_cluster/"
   cluster_name = "${module.workspaces.aws_cluster_name}"
-  eks_cluser_role_arn = "${var.aws_eks_cluser_arn}"
-  eks_nodes_role_name = "${var.aws_eks_nodes_role_name}"
+  eks_cluser_role_arn = "${module.iam.eks_cluser_role_arn}"
+  eks_nodes_role_name = "${module.iam.aws_eks_nodes_role_name}"
   EKS_Cluster_Security_Group = ["${module.security_groups.eks_cluser_security_groups}"]
   Public_Subnet_id_list = "${module.subnets.public_subnet_ids}"
   aiops_env = "${module.workspaces.env}"
@@ -70,9 +74,9 @@ module "eks_worker" {
   aws_eks_version = "${module.eks_cluster.aws_eks_version}"
   eks_node_userdata = "${module.eks_cluster.eks_node_userdata}"
   EKS_Node_Security_Group = ["${module.security_groups.eks_node_security_groups}"]
-  eks_nodes_role_name = "${var.aws_eks_nodes_role_name}"
+  eks_nodes_role_name = "${module.iam.aws_eks_nodes_role_name}"
   Public_Subnet_id_list = "${module.subnets.public_subnet_ids}"
-  eks_worker_instance_type = "${var.eks_worker_instance_type}"
+  eks_worker_instance_type = "${module.workspaces.eks_worker_instance_type}"
   eks_worker_desired_capacity = "${module.workspaces.eks_worker_desired_capacity}"
   eks_worker_max_size = "${module.workspaces.eks_worker_max_size}"
   eks_worker_min_size = "${module.workspaces.eks_worker_min_size}"
@@ -82,7 +86,7 @@ module "eks_worker" {
 
 module "eks_ebs" {
   source = "./modules/k8s/eks_ebs"
-  EBSsize = "${var.aws_ebs_size}"
+  EBSsize = "${module.workspaces.aws_ebs_size}"
   availability_zone_count = "${module.workspaces.aws_availability_zone_count}"
   aiops_env = "${module.workspaces.env}"
 }
