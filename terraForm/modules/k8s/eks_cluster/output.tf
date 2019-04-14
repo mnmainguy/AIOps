@@ -29,10 +29,9 @@ KUBECONFIG
 
 output "kubeconfig" {
   value = "${local.kubeconfig}"
-}
-
-data "aws_iam_role" "eks_nodes_role_name" {
-  name = "${var.eks_nodes_role_name}"
+  depends_on = [
+    "aws_eks_cluster.eks_cluser"
+  ]
 }
 
 locals {
@@ -44,7 +43,7 @@ metadata:
   namespace: kube-system
 data:
   mapRoles: |
-    - rolearn: ${data.aws_iam_role.eks_nodes_role_name.arn}
+    - rolearn: ${var.eks_nodes_role_arn}
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
@@ -54,6 +53,9 @@ CONFIGMAPAWSAUTH
 
 output "config_map_aws_auth" {
   value = "${local.config_map_aws_auth}"
+  depends_on = [
+    "aws_eks_cluster.eks_cluser"
+  ]
 }
 
 output "aws_eks_id" {
@@ -85,4 +87,7 @@ locals {
 
 output "eks_node_userdata" {
   value = "${local.eks_node_userdata }"
+  depends_on = [
+    "aws_eks_cluster.eks_cluser"
+  ]
 }

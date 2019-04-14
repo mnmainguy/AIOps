@@ -1,6 +1,6 @@
 
 resource "aws_iam_role" "aiops_eks_cluster" {
-  name = "aiops_eks_cluster"
+  name = "aiops_eks_cluster-${lower(var.aiops_env)}"
 
   assume_role_policy = <<POLICY
 {
@@ -33,7 +33,7 @@ resource "aws_iam_role_policy_attachment" "EKS-cluster-AmazonRoute53FullAccess" 
 }
 
 resource "aws_iam_role" "aiops_eks_nodes" {
-  name = "aiops_eks_nodes"
+  name = "aiops_eks_nodes-${lower(var.aiops_env)}"
 
   assume_role_policy = <<POLICY
 {
@@ -42,7 +42,7 @@ resource "aws_iam_role" "aiops_eks_nodes" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "eks.amazonaws.com"
+        "Service": "ec2.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
     }

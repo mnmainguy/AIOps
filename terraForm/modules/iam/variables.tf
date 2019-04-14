@@ -1,0 +1,2 @@
+variable "aiops_env" {
+}

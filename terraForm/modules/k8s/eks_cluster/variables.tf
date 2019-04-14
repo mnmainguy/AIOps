@@ -5,7 +5,7 @@ variable "EKS_Cluster_Security_Group" {
 variable "eks_cluser_role_arn" {
 }
 
-variable "eks_nodes_role_name" {
+variable "eks_nodes_role_arn" {
 }
 
 

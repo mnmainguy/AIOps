@@ -20,13 +20,13 @@ locals {
   }
 
  cluster_name = {
-    "default" = "mnist_train"
-    "train" = "mnist_train"
-    "prod" = "mnist_prod" 
+    "default" = "aiops_train"
+    "train" = "aiops_train"
+    "prod" = "aiops_prod" 
   }
   worker_desired_capacity = {
-    "default" = 2
-    "train" = 2
+    "default" = 1
+    "train" = 1
     "prod" = 1
   }
 

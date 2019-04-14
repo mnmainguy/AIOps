@@ -32,6 +32,7 @@ module "security_groups" {
 
 module "iam" {
   source = "./modules/iam/"
+  aiops_env = "${module.workspaces.env}"
 }
 
 module "subnets" {
@@ -62,7 +63,7 @@ module "eks_cluster" {
   source = "./modules/k8s/eks_cluster/"
   cluster_name = "${module.workspaces.aws_cluster_name}"
   eks_cluser_role_arn = "${module.iam.eks_cluser_role_arn}"
-  eks_nodes_role_name = "${module.iam.aws_eks_nodes_role_name}"
+  eks_nodes_role_arn = "${module.iam.eks_nodes_role_arn}"
   EKS_Cluster_Security_Group = ["${module.security_groups.eks_cluser_security_groups}"]
   Public_Subnet_id_list = "${module.subnets.public_subnet_ids}"
   aiops_env = "${module.workspaces.env}"

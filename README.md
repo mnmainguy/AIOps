@@ -22,12 +22,22 @@ Technologies used: Teraform, Docker, Kubernetes, Ksonnet, Kubeflow, Argo, ArgoCD
 5. Ksonnet: https://github.com/ksonnet/ksonnet#install
 
 ## Required AWS Access
-An AWS account is needed with the following permissions:
+An AWS account with an access key is needed with the following permissions:
 1. AmazonEC2FullAccess
 2. AutoScalingFullAccess
 3. AmazonS3FullAccess
 4. AmazonEKSAdminPolicy: https://docs.aws.amazon.com/eks/latest/userguide/EKS_IAM_user_policies.html
 5. IAMFullAccess
+
+## Setup AWS EC2 Key Pairs
+```
+# Open terminal and run ssh-keygen
+sudo ssh-keygen
+
+# Note key name - This will be used in terraform.tfvars file
+# Import ssh public key to aws EC2 console
+# https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html
+```
 
 ## Setup of AWS Infrastructure
 
@@ -39,6 +49,7 @@ git clone https://github.com/mnmainguy/AIOps.git
 cd terraForm
 
 # View and adjust terraform variables
+# At minimum add aws access key, aws secret key and aws ssh key name
 vi terraform.tfvars
 
 # View and adjust terraform workspace variables

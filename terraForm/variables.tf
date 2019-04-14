@@ -16,8 +16,3 @@ variable "vpc_cidr_block" {
 variable "ssh_key_name" {
     description = "AWS SSH Key Name for EC2"
 }
-
-variable "eks_git_token" {
-  description = "AWS SSH Key Name for EC2"
-  type = "string"
-}
