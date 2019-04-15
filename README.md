@@ -20,6 +20,7 @@ Technologies used: Teraform, Docker, Kubernetes, Ksonnet, Kubeflow, Argo, ArgoCD
 3. AWS-IAM: https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
 4. Kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
 5. Ksonnet: https://github.com/ksonnet/ksonnet#install
+6. Argocd CLI: https://github.com/argoproj/argo-cd/blob/master/docs/getting_started.md#2-download-argo-cd-cli
 
 ## Required AWS Access
 An AWS account with an access key is needed with the following permissions:

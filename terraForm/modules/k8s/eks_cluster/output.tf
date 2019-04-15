@@ -91,3 +91,9 @@ output "eks_node_userdata" {
     "aws_eks_cluster.eks_cluser"
   ]
 }
+output "eks_cluster_endpoint" {
+  value = "${aws_eks_cluster.eks_cluser.endpoint}"
+  depends_on = [
+    "aws_eks_cluster.eks_cluser"
+  ]
+}

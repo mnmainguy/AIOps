@@ -1,10 +1,13 @@
-source:
-  repoURL: 'https://github.com/mnmainguy/AIOps.git'
-  path: setup_ks_apps
-  targetRevision: master
-  ksonnet:
-    environment: argo-train
-destination:
-  server: 'https://kubernetes.default.svc'
-  namespace: argocd
-project: default
+metadata:
+  name: argo-train
+spec:
+  source:
+    repoURL: 'https://github.com/mnmainguy/AIOps.git'
+    path: setup_ks_apps
+    targetRevision: master
+    ksonnet:
+      environment: argo-train
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  project: default
