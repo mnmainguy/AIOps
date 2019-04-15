@@ -2,6 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: docker-storage
+  namespace: mnist
 spec:
   accessModes:
     - ReadWriteOnce

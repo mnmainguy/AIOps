@@ -16,3 +16,11 @@ variable "vpc_cidr_block" {
 variable "ssh_key_name" {
     description = "AWS SSH Key Name for EC2"
 }
+
+variable "docker_login" {
+    description = "Login for Dockerhub"
+}
+
+variable "docker_password" {
+    description = "Passwrod for Dockerhub"
+}
