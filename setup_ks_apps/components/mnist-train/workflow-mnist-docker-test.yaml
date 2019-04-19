@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: mnist-test
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  entrypoint: docker-test
+  ServiceAccountName: default
+  templates:
+  - name: docker-test
+    inputs:
+      artifacts:
+      # Check out the master branch of the argo repo and place it at /src
+      # revision can be anything that git checkout accepts: branch, commit, tag, etc.
+      - name: argo-source
+        path: /src
+        git:
+          repo: https://github.com/mnmainguy/AIOps.git
+          revision: "master"
+    container:
+      image: python:2.7.16-alpine
+      command: [sh, -c]
+      args: ["cd /src/mnist_example; pip install requests retrying kubernetes pytest;
+      python predict_test.py"]
