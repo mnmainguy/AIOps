@@ -34,5 +34,9 @@
     "workflow-mnist-docker-build": {
 
     },
+
+    "workflow-mnist-docker-test": {
+
+    },
   },
 }
