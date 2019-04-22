@@ -1,0 +1,5 @@
+requests 
+retrying 
+kubernetes 
+pytest
+awscli

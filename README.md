@@ -50,8 +50,11 @@ git clone https://github.com/mnmainguy/AIOps.git
 cd terraForm
 
 # View and adjust terraform variables
-# At minimum add aws access key, aws secret key and aws ssh key name
+# At minimum add aws access key, aws secret key, aws ssh key name, dockerhub login and pw
 vi terraform.tfvars
+
+# Set github not to track terraform.tfvars file
+git update-index --skip-worktree ./terraform.tfvars
 
 # View and adjust terraform workspace variables
 # Note default EC2 instance is p2.xlarge which cost $0.09 per minute
@@ -97,4 +100,8 @@ argo relogin
 
 # Go to ArgoCD UI in web browser by navigating to <ARGOCD_SERVER> URL in browser, login with username and password
 
+# To deploy MNIST, click sync on the following environments:
+# mnist-prod, mnist-train, mnist-test
 ```
+
+## Setup of MNIST Example application:

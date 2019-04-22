@@ -48,6 +48,14 @@ environments:
     path: mnist-train
     targets:
     - mnist-train
+  mnist-test:
+    destination:
+      namespace: test
+      server: https://60DEC1BD02A97560DB60F11470675E5C.yl4.us-west-2.eks.amazonaws.com
+    k8sVersion: v1.12.6
+    path: mnist-test
+    targets:
+    - mnist-test
 kind: ksonnet.io/app
 libraries:
   kubeflow/application:

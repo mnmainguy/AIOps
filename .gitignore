@@ -2,8 +2,8 @@
 *.terra*
 *.tfstate*
 *.jar
-test*
 config_map_aws_auth.yml
 kubeconfig
 build/**
 kubeflow/eks-kubeflow/**
+__pycache__

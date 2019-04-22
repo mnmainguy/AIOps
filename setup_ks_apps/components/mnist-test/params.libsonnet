@@ -10,7 +10,7 @@
       enablePrometheus: 'true',
       httpProxyImage: 'gcr.io/kubeflow-images-public/tf-model-server-http-proxy:v20180723',
       injectIstio: 'false',
-      modelBasePath: 's3://aiops-prod/export/',
+      modelBasePath: 's3://aiops-train/export/',
       modelName: 'mnist',
       name: 'mnist-deploy-aws',
       numGpus: '1',
@@ -29,28 +29,7 @@
       injectIstio: 'false',
       modelName: 'mnist',
       name: 'mnist-service',
-      serviceType: 'ClusterIP',
-      trafficRule: 'v1:100',
-    },
-    "web-ui": {
-      containerPort: 5000,
-      image: 'docker.io/mmainguy/mnist-ui',
-      name: 'mnist-web-ui',
-      replicas: 1,
-      servicePort: 80,
-      type: 'LoadBalancer',
-    },
-    "serviceaccount-external-dns-jrfxe": {
-
-    },
-    "clusterrole-external-dns-pnxas": {
-
-    },
-    "clusterrolebinding-external-dns-viewer-bqvaj": {
-
-    },
-    "deployment-external-dns-fvtkk": {
-
+      serviceType: 'LoadBalancer',
     },
   },
 }

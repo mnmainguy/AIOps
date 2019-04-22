@@ -46,12 +46,14 @@ resource "null_resource" "ApplyAWSCredentials" {
                 if test "${module.workspaces.env}" = 'train'; then
                   kubectl create namespace argocd
                   kubectl create namespace argo
+                  kubectl create namespace test
 
                   # Add server details to setup_ks_apps/app.yaml file
                   ks env set argo-train --server="${module.eks_cluster.eks_cluster_endpoint}"
                   ks env set argocd-train --server="${module.eks_cluster.eks_cluster_endpoint}"
                   ks env set kubeflow-train --server="${module.eks_cluster.eks_cluster_endpoint}"
                   ks env set mnist-train --server="${module.eks_cluster.eks_cluster_endpoint}"
+                  ks env set mnist-test --server="${module.eks_cluster.eks_cluster_endpoint}"
 
                   # Deploy argocd and argo to training environment
                   ks apply argocd-${module.workspaces.env}
@@ -59,6 +61,7 @@ resource "null_resource" "ApplyAWSCredentials" {
 
                   # Create storage and credentials for docker cache
                   kubectl create secret generic docker-creds -n mnist --from-literal=dockerLogin=${var.docker_login} --from-literal=dockerPassword=${var.docker_password}
+                  kubectl create secret generic aws-creds -n test --from-literal=awsAccessKeyID=${var.access_key}   --from-literal=awsSecretAccessKey=${var.secret_key}
 
                   # Login to Argocd and create deployment plans for training deployments
                   ARGOCD_URL="$$(kubectl get service -n argocd argocd-server -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")" 

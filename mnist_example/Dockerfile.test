@@ -1,0 +1,7 @@
+#This container contains your model and any helper scripts specific to your model.
+FROM python:2.7.16-alpine
+
+ADD requirements-test.txt /opt/requirements-test.txt
+RUN pip install -r /opt/requirements-test.txt
+
+
