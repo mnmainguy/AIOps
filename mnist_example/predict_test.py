@@ -60,7 +60,7 @@ def test_predict():
 
   # We proxy the request through the APIServer so that we can connect
   # from outside the cluster.
-  url = ("https://F69DB4F03D300866F53CC37ED538BAE0.sk1.us-west-2.eks.amazonaws.com/api/v1/namespaces/test/services/mnist-service:8500"
+  url = ("http://a74a65a43626f11e9add206315979229-1245725681.us-west-2.elb.amazonaws.com:8500"
          "/v1/models/mnist:predict")
   logging.info("Request: %s", url)
   r = send_request(url, json=instances, verify=False)
