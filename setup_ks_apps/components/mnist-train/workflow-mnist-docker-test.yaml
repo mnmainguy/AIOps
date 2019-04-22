@@ -46,3 +46,4 @@ spec:
             secretKeyRef:
               name: aws-creds
               key: awsSecretAccessKey
+    activeDeadlineSeconds: 300  
