@@ -1,9 +1,9 @@
 locals {
   env="${terraform.workspace}"
   aws_az_count = {
-    "default" = 3
-    "train" = 3
-    "prod" = 4 
+    "default" = 2
+    "train" = 2
+    "prod" = 2
   
   }
   public_subnet_range = {
@@ -37,21 +37,21 @@ locals {
   }
   
   worker_max_size = {
-    "default" = 3
-    "train" = 6
-    "prod" = 6
+    "default" = 2
+    "train" = 2
+    "prod" = 2
   }
 
   aws_ebs_size = {
-    "default" = 40
-    "train" = 40
-    "prod" = 40
+    "default" = 10
+    "train" = 10
+    "prod" = 10
   }
   
    eks_worker_instance_type = {
-    "default" = "p2.xlarge"
-    "train" = "p2.xlarge"
-    "prod" = "p2.xlarge"
+    "default" = "t2.large"
+    "train" = "t2.large"
+    "prod" = "t2.large"
   }
 }
 output "env" {

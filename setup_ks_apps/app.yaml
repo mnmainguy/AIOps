@@ -3,7 +3,7 @@ environments:
   argo-train:
     destination:
       namespace: argo
-      server: https://60DEC1BD02A97560DB60F11470675E5C.yl4.us-west-2.eks.amazonaws.com
+      server: https://BAC90D2C4DEFF7C6D4EA90F738AECB84.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: argo-train
     targets:
@@ -11,7 +11,7 @@ environments:
   argocd-train:
     destination:
       namespace: argocd
-      server: https://60DEC1BD02A97560DB60F11470675E5C.yl4.us-west-2.eks.amazonaws.com
+      server: https://BAC90D2C4DEFF7C6D4EA90F738AECB84.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: argocd-train
     targets:
@@ -27,7 +27,7 @@ environments:
   kubeflow-train:
     destination:
       namespace: kubeflow
-      server: https://60DEC1BD02A97560DB60F11470675E5C.yl4.us-west-2.eks.amazonaws.com
+      server: https://BAC90D2C4DEFF7C6D4EA90F738AECB84.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: kubeflow-train
     targets:
@@ -40,22 +40,22 @@ environments:
     path: mnist-prod
     targets:
     - mnist-serve
-  mnist-train:
-    destination:
-      namespace: mnist
-      server: https://60DEC1BD02A97560DB60F11470675E5C.yl4.us-west-2.eks.amazonaws.com
-    k8sVersion: v1.12.6
-    path: mnist-train
-    targets:
-    - mnist-train
   mnist-test:
     destination:
       namespace: test
-      server: https://60DEC1BD02A97560DB60F11470675E5C.yl4.us-west-2.eks.amazonaws.com
+      server: https://BAC90D2C4DEFF7C6D4EA90F738AECB84.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: mnist-test
     targets:
     - mnist-test
+  mnist-train:
+    destination:
+      namespace: mnist
+      server: https://BAC90D2C4DEFF7C6D4EA90F738AECB84.yl4.us-west-2.eks.amazonaws.com
+    k8sVersion: v1.12.6
+    path: mnist-train
+    targets:
+    - mnist-train
 kind: ksonnet.io/app
 libraries:
   kubeflow/application:

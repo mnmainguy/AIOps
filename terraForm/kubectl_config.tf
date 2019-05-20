@@ -15,7 +15,7 @@ resource "local_file" "config_map_aws_auth" {
     filename = "config_map_aws_auth.yml"
 }
 resource "null_resource" "ApplyAWSCredentials" {
-  depends_on = ["null_resource.makeKubeConfig"]
+  depends_on = ["null_resource.makeKubeConfig","module.eks_worker"]
   triggers { 
     template = "${local_file.config_map_aws_auth.content}"
   }
@@ -29,9 +29,9 @@ resource "null_resource" "ApplyAWSCredentials" {
                 export KUBECONFIG=$$HOME/.kube/config-${module.workspaces.env}
                 kubectl config set-context aws-${module.workspaces.env}
 
-                # Apply aws authentication and GPU driver to cluser
+                # Apply aws authentication and GPU driver to cluser (if needed)
                 kubectl apply -f config_map_aws_auth.yml
-                kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.10/nvidia-device-plugin.yml
+                # kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.10/nvidia-device-plugin.yml
 
                 # Create namespaces for kubeflow and model
                 kubectl create namespace kubeflow
@@ -70,6 +70,7 @@ resource "null_resource" "ApplyAWSCredentials" {
                   argocd app create argo-train -f ../setup_argocd/argo-train.yaml
                   argocd app create kubeflow-train -f ../setup_argocd/kubeflow-train.yaml
                   argocd app create mnist-train -f ../setup_argocd/mnist-train.yaml
+                  argocd app create mnist-prod -f ../setup_argocd/mnist-prod.yaml
 
                 fi
                 

@@ -16,8 +16,8 @@
       secretKeyRefs: 'AWS_ACCESS_KEY_ID=aws-creds.awsAccessKeyID,AWS_SECRET_ACCESS_KEY=aws-creds.awsSecretAccessKey',
       trainSteps: 200, 
       name: "mnist-train-aws",
-      numGpus: 1,
-      device: "gpu"
+      numGpus: 0,
+      device: "cpu"
     },
     "serviceaccount-argo-dpuur": {
 
