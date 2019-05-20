@@ -37,7 +37,7 @@
       image: 'docker.io/mmainguy/mnist-ui',
       name: 'mnist-web-ui',
       replicas: 1,
-      servicePort: 80,
+      servicePort: 443,
       type: 'LoadBalancer',
     },
     "serviceaccount-external-dns-jrfxe": {

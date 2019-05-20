@@ -26,20 +26,20 @@ locals {
   }
   worker_desired_capacity = {
     "default" = 1
-    "train" = 1
-    "prod" = 1
+    "train" = 2
+    "prod" = 2
   }
 
   worker_min_size = {
     "default" = 1
-    "train" = 1
-    "prod" = 1
+    "train" = 2
+    "prod" = 2
   }
   
   worker_max_size = {
-    "default" = 2
-    "train" = 2
-    "prod" = 2
+    "default" = 3
+    "train" = 3
+    "prod" = 3
   }
 
   aws_ebs_size = {
