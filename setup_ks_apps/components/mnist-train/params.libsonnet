@@ -28,9 +28,6 @@
     "clusterrolebinding-argo-binding-mqgke": {
 
     },
-    "persistentvolumeclaim-docker-storage": {
-
-    },
     "workflow-mnist-docker-build": {
 
     },

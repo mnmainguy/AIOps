@@ -105,5 +105,8 @@
     "clusterrole-external-dns": {
 
     },
+    "persistentvolumeclaim-docker-storage": {
+
+    },
   },
 }
