@@ -63,12 +63,14 @@ resource "null_resource" "ApplyAWSCredentials" {
                   kubectl create secret generic docker-creds -n mnist --from-literal=dockerLogin=${var.docker_login} --from-literal=dockerPassword=${var.docker_password}
                   kubectl create secret generic aws-creds -n test --from-literal=awsAccessKeyID=${var.access_key}   --from-literal=awsSecretAccessKey=${var.secret_key}
 
-                  sleep 30s
+                  sleep 30
                   # Login to Argocd and create deployment plans for training deployments
                   export ARGOCD_URL="$$(kubectl get service -n argocd argocd-server -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")" 
                   export ARGOCD_PW="$$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)"
-                  sleep 1m
-                  argocd login $ARGOCD_URL --insecure --username=admin --password=$ARGOCD_PW
+                  
+                  until argocd login $ARGOCD_URL --insecure --username=admin --password=$ARGOCD_PW; do sleep 10; done;
+
+                  # argocd login $ARGOCD_URL --insecure --username=admin --password=$ARGOCD_PW
                   argocd app create argo-train -f ../setup_argocd/argo-train.yaml
                   argocd app create kubeflow-train -f ../setup_argocd/kubeflow-train.yaml
                   argocd app create mnist-train -f ../setup_argocd/mnist-train.yaml

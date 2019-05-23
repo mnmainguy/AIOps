@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: mnist-rollback
+spec:
+  entrypoint: mnist-rollback
+  ServiceAccountName: default
+  templates:
+  - name: mnist-rollback
+    inputs:
+      artifacts:
+      # Check out the master branch of the AIOPs repo
+      - name: argo-source
+        path: /src
+        git:
+          repo: https://github.com/mnmainguy/AIOps.git
+          revision: "master"
+    container:
+      image: mmainguy/mnist-test:latest
+      command: [sh, -c]
+      # Wait until S3 bucket is not empty and then run integration test. If integration test passes, upload trained model to prod S3 bucket.
+      args: ["cd /src/mnist_example; pip install requests retrying kubernetes pytest;
+      mkdir ~/.aws;
+      cat <<EOF > ~/.aws/config\
+      \n[default]\
+      \naws_access_key_id=$AWS_ACCESS_KEY\
+      \naws_secret_access_key=$AWS_SECRET_KEY\
+      \nregion=us-west-2\
+      \nEOF\n
+      filecount=`aws s3 ls s3://aiops-train/export --recursive|wc -l`;
+      echo $filecount;
+      until [[ ${filecount} -gt 1 ]]; do sleep 10; filecount=`aws s3 ls s3://aiops-train/export --recursive|wc -l`; done;
+      python predict_test.py| grep '1 xpassed';
+      aws s3 sync s3://aiops-train/export s3://aiops-prod/export;"]
+      env:
+        - name: AWS_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-creds
+              key: awsAccessKeyID
+        - name: AWS_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-creds
+              key: awsSecretAccessKey
+    activeDeadlineSeconds: 300  

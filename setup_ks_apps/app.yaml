@@ -3,7 +3,7 @@ environments:
   argo-train:
     destination:
       namespace: argo
-      server: https://8E1D49C46C27BBB9632A1ABF802982BA.yl4.us-west-2.eks.amazonaws.com
+      server: https://4EB1A3A524BC18643D379BAA1451FEF8.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: argo-train
     targets:
@@ -11,7 +11,7 @@ environments:
   argocd-train:
     destination:
       namespace: argocd
-      server: https://8E1D49C46C27BBB9632A1ABF802982BA.yl4.us-west-2.eks.amazonaws.com
+      server: https://4EB1A3A524BC18643D379BAA1451FEF8.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: argocd-train
     targets:
@@ -27,7 +27,7 @@ environments:
   kubeflow-train:
     destination:
       namespace: kubeflow
-      server: https://8E1D49C46C27BBB9632A1ABF802982BA.yl4.us-west-2.eks.amazonaws.com
+      server: https://4EB1A3A524BC18643D379BAA1451FEF8.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: kubeflow-train
     targets:
@@ -43,7 +43,7 @@ environments:
   mnist-test:
     destination:
       namespace: test
-      server: https://8E1D49C46C27BBB9632A1ABF802982BA.yl4.us-west-2.eks.amazonaws.com
+      server: https://4EB1A3A524BC18643D379BAA1451FEF8.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: mnist-test
     targets:
@@ -51,7 +51,7 @@ environments:
   mnist-train:
     destination:
       namespace: mnist
-      server: https://8E1D49C46C27BBB9632A1ABF802982BA.yl4.us-west-2.eks.amazonaws.com
+      server: https://4EB1A3A524BC18643D379BAA1451FEF8.yl4.us-west-2.eks.amazonaws.com
     k8sVersion: v1.12.6
     path: mnist-train
     targets:
