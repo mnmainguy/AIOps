@@ -67,7 +67,7 @@ resource "null_resource" "ApplyAWSCredentials" {
                   # Login to Argocd and create deployment plans for training deployments
                   export ARGOCD_URL="$$(kubectl get service -n argocd argocd-server -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")" 
                   export ARGOCD_PW="$$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)"
-                  sleep 30s
+                  sleep 1m
                   argocd login $ARGOCD_URL --insecure --username=admin --password=$ARGOCD_PW
                   argocd app create argo-train -f ../setup_argocd/argo-train.yaml
                   argocd app create kubeflow-train -f ../setup_argocd/kubeflow-train.yaml

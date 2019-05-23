@@ -32,7 +32,7 @@ spec:
       \nEOF\n
       filecount=`aws s3 ls s3://aiops-train/export --recursive|wc -l`;
       echo $filecount;
-      until [[ ${filecount} -gt 1 ]]; do sleep 3; filecount=`aws s3 ls s3://aiops-train/export --recursive|wc -l`; done;
+      until [[ ${filecount} -gt 1 ]]; do sleep 10; filecount=`aws s3 ls s3://aiops-train/export --recursive|wc -l`; done;
       python predict_test.py| grep '1 xpassed';
       aws s3 sync s3://aiops-train/export s3://aiops-prod/export;"]
       env:
