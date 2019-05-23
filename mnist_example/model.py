@@ -51,7 +51,7 @@ def parse_arguments():
                       help='Tensorflow model type for training.')
   parser.add_argument('--tf-train-steps',
                       type=int,
-                      default=50,
+                      default=200,
                       help='The number of training steps to perform.')
   parser.add_argument('--tf-batch-size',
                       type=int,
@@ -231,8 +231,6 @@ def main(_):
   print("Train and evaluate")
   tf.estimator.train_and_evaluate(classifier, train_spec, eval_spec)
   print("Training done")
-
-  print(tf.summary.scalar('loss', loss[1]))
 
   if is_chief:
     print("Export saved model")

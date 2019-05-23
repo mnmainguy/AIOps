@@ -63,11 +63,12 @@ resource "null_resource" "ApplyAWSCredentials" {
                   kubectl create secret generic docker-creds -n mnist --from-literal=dockerLogin=${var.docker_login} --from-literal=dockerPassword=${var.docker_password}
                   kubectl create secret generic aws-creds -n test --from-literal=awsAccessKeyID=${var.access_key}   --from-literal=awsSecretAccessKey=${var.secret_key}
 
-                  sleep 1m
+                  sleep 30s
                   # Login to Argocd and create deployment plans for training deployments
-                  ARGOCD_URL="$$(kubectl get service -n argocd argocd-server -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")" 
-                  ARGOCD_PW="$$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)"
-                  argocd login $$ARGOCD_URL --insecure --username=admin --password=$$ARGOCD_PW
+                  export ARGOCD_URL="$$(kubectl get service -n argocd argocd-server -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")" 
+                  export ARGOCD_PW="$$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)"
+                  sleep 30s
+                  argocd login $ARGOCD_URL --insecure --username=admin --password=$ARGOCD_PW
                   argocd app create argo-train -f ../setup_argocd/argo-train.yaml
                   argocd app create kubeflow-train -f ../setup_argocd/kubeflow-train.yaml
                   argocd app create mnist-train -f ../setup_argocd/mnist-train.yaml
@@ -85,7 +86,7 @@ resource "null_resource" "ApplyAWSCredentials" {
                   # Login to Argocd and create deployment plans for production deployments
                   ARGOCD_URL="$$(kubectl get service -n argocd argocd-server -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")" 
                   ARGOCD_PW="$$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)"
-                  argocd login $$ARGOCD_URL --insecure --username=admin --password=$$ARGOCD_PW
+                  argocd login $ARGOCD_URL --insecure --username=admin --password=$ARGOCD_PW
                   argocd cluster add aws-prod
                   argocd app create kubeflow-prod -f ../setup_argocd/kubeflow-prod.yaml --env kubeflow-prod
                   argocd app create mnist-prod -f ../setup_argocd/mnist-prod.yaml --env mnist-prod

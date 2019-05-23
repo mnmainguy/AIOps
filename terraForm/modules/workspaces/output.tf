@@ -43,9 +43,9 @@ locals {
   }
 
   aws_ebs_size = {
-    "default" = 10
-    "train" = 10
-    "prod" = 10
+    "default" = 15
+    "train" = 15
+    "prod" = 15
   }
   
    eks_worker_instance_type = {
